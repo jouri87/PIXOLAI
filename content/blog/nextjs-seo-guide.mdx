@@ -1,0 +1,109 @@
+---
+title: "The Complete Next.js SEO Guide for 2025"
+description: "Learn how to implement perfect SEO in Next.js 15 with the App Router: metadata, structured data, sitemaps, robots.txt, and Core Web Vitals optimization."
+date: "2025-01-20"
+author: "PixolAI Team"
+category: "Next.js"
+tags: ["nextjs", "seo", "web development", "performance"]
+featured: false
+---
+
+Next.js provides some of the best SEO tooling of any React framework. This guide covers everything you need to achieve top search rankings.
+
+## Metadata API
+
+Next.js 15 uses the Metadata API for SEO configuration:
+
+```typescript
+// app/page.tsx
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "PixolAI — Free Developer Tools",
+  description: "16+ free browser-based tools for developers.",
+  openGraph: {
+    type: "website",
+    title: "PixolAI",
+    description: "Free developer tools for everyone.",
+    images: [{ url: "/og.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    creator: "@pixolai",
+  },
+};
+```
+
+## Dynamic Metadata
+
+For dynamic routes:
+
+```typescript
+// app/blog/[slug]/page.tsx
+export async function generateMetadata({ params }): Promise<Metadata> {
+  const post = await getPost(params.slug);
+  return {
+    title: post.title,
+    description: post.description,
+    alternates: {
+      canonical: `https://pixolai.dev/blog/${params.slug}`,
+    },
+  };
+}
+```
+
+## Structured Data (JSON-LD)
+
+Add structured data directly in your components:
+
+```tsx
+export default function ArticlePage({ post }) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    datePublished: post.date,
+    author: { "@type": "Organization", name: "PixolAI" },
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
+      {/* ... */}
+    </>
+  );
+}
+```
+
+## XML Sitemap
+
+```typescript
+// app/sitemap.ts
+import { MetadataRoute } from "next";
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  return [
+    {
+      url: "https://pixolai.dev",
+      lastModified: new Date(),
+      priority: 1,
+    },
+  ];
+}
+```
+
+## Core Web Vitals
+
+Key optimizations for CWV:
+- Use `next/image` for all images
+- Use `next/font` for fonts (eliminates CLS)
+- Minimize client-side JavaScript
+- Use static generation (`generateStaticParams`) for dynamic routes
+- Implement proper `loading="lazy"` for below-fold images
+
+## Conclusion
+
+Next.js gives you all the tools needed for excellent SEO out of the box. Focus on the Metadata API, structured data, and Core Web Vitals to outrank competitors.

@@ -1,0 +1,97 @@
+---
+title: "JavaScript Array Methods Every Developer Should Know"
+description: "Master map, filter, reduce, find, and more. A practical guide to JavaScript array methods with real-world examples."
+date: "2025-01-10"
+author: "PixolAI Team"
+category: "JavaScript"
+tags: ["javascript", "arrays", "es6", "functional programming"]
+featured: false
+---
+
+JavaScript arrays come with a powerful set of built-in methods that make data manipulation clean and expressive. This guide covers the most important ones with practical examples.
+
+## Array.map()
+
+Transform each element of an array and return a new array:
+
+```javascript
+const prices = [10, 20, 30, 40];
+const withTax = prices.map(price => price * 1.1);
+// [11, 22, 33, 44]
+
+const users = [
+  { id: 1, name: "Alice" },
+  { id: 2, name: "Bob" }
+];
+const names = users.map(u => u.name);
+// ["Alice", "Bob"]
+```
+
+## Array.filter()
+
+Return a new array with elements that pass a test:
+
+```javascript
+const numbers = [1, 2, 3, 4, 5, 6];
+const evens = numbers.filter(n => n % 2 === 0);
+// [2, 4, 6]
+
+const activeUsers = users.filter(u => u.active);
+```
+
+## Array.reduce()
+
+Reduce an array to a single value:
+
+```javascript
+const cart = [
+  { item: "Tool A", price: 10 },
+  { item: "Tool B", price: 20 },
+  { item: "Tool C", price: 15 },
+];
+
+const total = cart.reduce((sum, item) => sum + item.price, 0);
+// 45
+```
+
+## Array.find() and Array.findIndex()
+
+```javascript
+const users = [
+  { id: 1, name: "Alice" },
+  { id: 2, name: "Bob" },
+];
+
+const bob = users.find(u => u.name === "Bob");
+// { id: 2, name: "Bob" }
+
+const bobIndex = users.findIndex(u => u.name === "Bob");
+// 1
+```
+
+## Array.some() and Array.every()
+
+```javascript
+const scores = [85, 92, 78, 95, 88];
+
+const anyFailing = scores.some(s => s < 70);
+// false
+
+const allPassing = scores.every(s => s >= 70);
+// true
+```
+
+## Chaining Methods
+
+The real power comes from chaining:
+
+```javascript
+const result = users
+  .filter(u => u.active)
+  .map(u => ({ ...u, name: u.name.toUpperCase() }))
+  .sort((a, b) => a.name.localeCompare(b.name));
+```
+
+## Conclusion
+
+Mastering these methods will make your JavaScript code more readable, maintainable, and functional. Practice using them instead of traditional for loops wherever possible.

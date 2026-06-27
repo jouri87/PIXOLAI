@@ -1,0 +1,111 @@
+---
+title: "How to Format JSON: A Complete Developer Guide"
+description: "Learn how to format, validate, and pretty-print JSON in JavaScript, Python, and using online tools. Includes common errors and how to fix them."
+date: "2025-01-15"
+author: "PixolAI Team"
+category: "JavaScript"
+tags: ["json", "javascript", "api", "debugging"]
+featured: true
+---
+
+JSON (JavaScript Object Notation) is the lingua franca of modern APIs. Every developer encounters it daily, but few take the time to master the tools available for working with it efficiently.
+
+## What is JSON Formatting?
+
+JSON formatting (also called "pretty-printing") is the process of adding indentation and newlines to a compact JSON string to make it human-readable.
+
+**Compact JSON:**
+```json
+{"name":"PixolAI","tools":["json","regex","base64"],"free":true}
+```
+
+**Formatted JSON:**
+```json
+{
+  "name": "PixolAI",
+  "tools": [
+    "json",
+    "regex",
+    "base64"
+  ],
+  "free": true
+}
+```
+
+## Formatting JSON in JavaScript
+
+### Using JSON.stringify()
+
+The built-in `JSON.stringify()` method accepts an optional `space` argument:
+
+```javascript
+const data = { name: "PixolAI", version: "1.0" };
+
+// 2-space indentation
+const pretty = JSON.stringify(data, null, 2);
+console.log(pretty);
+
+// Tab indentation
+const tabbed = JSON.stringify(data, null, "\t");
+```
+
+### In Node.js
+
+```javascript
+const fs = require('fs');
+
+// Read and format a JSON file
+const raw = fs.readFileSync('config.json', 'utf8');
+const data = JSON.parse(raw);
+const formatted = JSON.stringify(data, null, 2);
+fs.writeFileSync('config-formatted.json', formatted);
+```
+
+## Formatting JSON in Python
+
+```python
+import json
+
+# Format a Python dict
+data = {"name": "PixolAI", "free": True}
+formatted = json.dumps(data, indent=2)
+print(formatted)
+
+# Format a JSON file
+with open('data.json', 'r') as f:
+    data = json.load(f)
+    
+with open('data-formatted.json', 'w') as f:
+    json.dump(data, f, indent=2, sort_keys=True)
+```
+
+## Common JSON Errors and How to Fix Them
+
+### Trailing commas
+```json
+// Invalid — trailing comma
+{
+  "name": "PixolAI",
+  "free": true,
+}
+
+// Valid
+{
+  "name": "PixolAI",
+  "free": true
+}
+```
+
+### Single quotes
+JSON requires double quotes. Single quotes are not valid JSON.
+
+### Undefined keys
+All JSON keys must be strings in double quotes.
+
+## Using PixolAI's JSON Formatter
+
+The quickest way to format JSON is to use our [JSON Formatter tool](/tools/json-formatter). Simply paste your JSON, choose your indentation level, and click Format. The tool validates your JSON in real-time and highlights any errors.
+
+## Conclusion
+
+JSON formatting is a small but important skill for every developer. Whether you're debugging an API, reviewing a config file, or preparing data for documentation, having the right tools saves time and prevents mistakes.
